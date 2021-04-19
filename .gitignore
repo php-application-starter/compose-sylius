@@ -1,0 +1,50 @@
+.idea/
+/sylius/public/assets
+/sylius/public/css
+/sylius/public/js
+/sylius/public/media
+/sylius/public/build
+/sylius!/public/media/image/.gitkeep
+
+/app/config/parameters.yml
+
+/sylius/bin/symfony_requirements
+
+/sylius/docs/.doctrees
+
+/sylius/composer.lock
+sylius/node_modules
+
+/sylius/etc/build/*
+!sylius/etc/build/.gitignore
+
+/sylius/behat.yml
+/sylius/phpspec.yml
+
+# Symfony CLI https://symfony.com/doc/current/setup/symfony_server.html#different-php-settings-per-project
+/sylius/.php-version
+/sylius/php.ini
+
+###> symfony/framework-bundle ###
+/sylius/.env.*.local
+/sylius/.env.local
+/sylius/.env.local.php
+/sylius/public/bundles
+/sylius/var/
+/sylius/vendor/
+###< symfony/framework-bundle ###
+
+###> friendsofphp/php-cs-fixer ###
+/sylius/.php_cs
+/sylius/.php_cs.cache
+###< friendsofphp/php-cs-fixer ###
+
+###> phpunit/phpunit ###
+/sylius/phpunit.xml
+/sylius/.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> lexik/jwt-authentication-bundle ###
+/sylius/config/jwt/*.pem
+!/sylius/config/jwt/*-test.pem
+###< lexik/jwt-authentication-bundle ###
