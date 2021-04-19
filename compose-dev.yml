@@ -1,0 +1,43 @@
+version: '3.3'
+
+services:
+
+  php-fpm:
+    image: sylius
+    container_name: "${PROJECT_NAME}${PROJECT_SEPARATOR}php-fpm"
+    environment:
+      WORKDIR_PROJECT: ${SYLIUS_PATH_CONTAINER}
+    volumes:
+      - ${SYLIUS_PATH_HOST}:${SYLIUS_PATH_CONTAINER}
+      - ./config/php/php.ini-production:/usr/local/etc/php/php.ini-production
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+  apache:
+    image: apache24
+    container_name: "${PROJECT_NAME}${PROJECT_SEPARATOR}apache"
+    environment:
+      WORKDIR_PROJECT: "${SYLIUS_PATH_CONTAINER}"
+      FPM_HOST: "${PROJECT_NAME}${PROJECT_SEPARATOR}php-fpm:9000"
+    ports:
+      - ${APACHE_PORT_HOST}:${APACHE_PORT_CONTAINER}
+    volumes:
+      - ./config/apache/sites-enabled:/etc/apache2/sites-enabled
+      - ${SYLIUS_PATH_HOST}:${SYLIUS_PATH_CONTAINER}
+  database:
+    image: mysql:8.0
+    container_name: "${PROJECT_NAME}${PROJECT_SEPARATOR}mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_USER_PASSWORD}
+    command: [ "--default-authentication-plugin=mysql_native_password" ]
+    ports:
+      - 3306:3306
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: "${PROJECT_NAME}${PROJECT_SEPARATOR}phpmyadmin"
+    environment:
+      PMA_HOST: "${PROJECT_NAME}${PROJECT_SEPARATOR}mysql"
+      PMA_PORT: 3306
+    ports:
+      - 7200:80
